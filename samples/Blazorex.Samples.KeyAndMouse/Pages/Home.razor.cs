@@ -30,7 +30,7 @@ public partial class Home
         );
     }
 
-    private void OnCanvasReady(CanvasBase canvas)
+    private void OnCanvasReady(ICanvas canvas)
     {
         _context = canvas.RenderContext;
     }

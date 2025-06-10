@@ -9,7 +9,7 @@
     CanvasManager _canvasManager;
     IRenderContext _context;
     MouseMoveEvent _mousecoords;
-    CanvasBase _fireCanvas;
+    ICanvas _fireCanvas;
 
     int _width = 800;
     int _height = 600;
@@ -47,7 +47,7 @@
         });
     }
 
-    private async ValueTask OnFireCanvasReady(CanvasBase canvas)
+    private async ValueTask OnFireCanvasReady(ICanvas canvas)
     {
         _fireCanvas = canvas;
         _fireRenderer = new Services.FireRenderer(canvas.RenderContext, _fireWidth, _fireHeight);
@@ -60,7 +60,7 @@
         _fireRenderer.Render();
     }
 
-    private void OnMainCanvasReady(CanvasBase canvas)
+    private void OnMainCanvasReady(ICanvas canvas)
     {
         _context = canvas.RenderContext;
     }

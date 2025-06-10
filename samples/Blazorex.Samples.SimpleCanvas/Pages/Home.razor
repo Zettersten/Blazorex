@@ -33,7 +33,7 @@
     CanvasManager _canvasManager;
     ElementReference _spritesheet;
     IRenderContext _context;
-    CanvasBase _canvas;
+    ICanvas _canvas;
 
     int _width = 800;
     int _height = 600;
@@ -72,7 +72,7 @@
             });
     }
 
-    private void OnMainCanvasReady(CanvasBase canvas)
+    private void OnMainCanvasReady(ICanvas canvas)
     {
         _canvas = canvas;
         _context = canvas.RenderContext;
@@ -91,7 +91,7 @@
 
     private async ValueTask GetBlobDataURL()
     {
-        this.blobUrl = await this._canvas.ToObjectUrl("image/png");
+        this.blobUrl = await this._canvas.CreateObjectURL("image/png");
     }
 
     private void Update(float timeStamp)

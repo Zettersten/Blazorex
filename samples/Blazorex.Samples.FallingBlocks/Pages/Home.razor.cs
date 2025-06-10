@@ -1,5 +1,5 @@
 using Microsoft.AspNetCore.Components;
-using game = Blazorex.Samples.FallingBlocks.FallingBlocksGame;
+using Game = Blazorex.Samples.FallingBlocks.FallingBlocksGame;
 
 namespace Blazorex.Samples.FallingBlocks.Pages;
 
@@ -19,29 +19,29 @@ public partial class Home
             new CanvasCreationOptions()
             {
                 Hidden = false,
-                Width = game.W,
-                Height = game.H,
+                Width = Game.W,
+                Height = Game.H,
                 OnCanvasReady = this.OnMainCanvasReady,
                 OnFrameReady = this.OnMainFrameReady,
                 OnKeyUp = (key) =>
                 {
-                    if (_context == null || game.Lose)
+                    if (_context == null || Game.Lose)
                     {
                         return;
                     }
 
-                    game.KeyUp(key.KeyCode);
+                    Game.KeyUp(key.KeyCode);
                 },
             }
         );
     }
 
-    private void OnMainCanvasReady(CanvasBase canvas)
+    private void OnMainCanvasReady(ICanvas canvas)
     {
         _context = canvas.RenderContext;
         _focusAction = () => canvas.ElementReference.FocusAsync(true);
 
-        game.Lose = true;
+        Game.Lose = true;
     }
 
     private float _lastRenderTime = 0;
@@ -49,7 +49,7 @@ public partial class Home
 
     private void OnMainFrameReady(float timestamp)
     {
-        if (_context == null || game.Lose)
+        if (_context == null || Game.Lose)
         {
             return;
         }
@@ -57,14 +57,14 @@ public partial class Home
         // Render every 30ms
         if (timestamp - _lastRenderTime >= 30f)
         {
-            game.Render(_context);
+            Game.Render(_context);
             _lastRenderTime = timestamp;
         }
 
         // Tick every 400ms
         if (timestamp - _lastTickTime >= 400f)
         {
-            game.Tick();
+            Game.Tick();
             _lastTickTime = timestamp;
         }
     }
@@ -79,9 +79,9 @@ public partial class Home
         _lastRenderTime = 0;
         _lastTickTime = 0;
 
-        game.Init();
-        game.NewShape();
-        game.Lose = false;
+        Game.Init();
+        Game.NewShape();
+        Game.Lose = false;
 
         if (_focusAction is not null)
         {

@@ -7,7 +7,7 @@ namespace Blazorex.Abstractions;
 public abstract class CanvasManagerBase : ComponentBase
 {
     protected readonly Dictionary<string, CanvasCreationOptions> _names = [];
-    protected readonly Dictionary<string, CanvasBase> _canvases = [];
+    protected readonly Dictionary<string, ICanvas> _canvases = [];
 
     public void CreateCanvas(string name, CanvasCreationOptions options)
     {
@@ -16,11 +16,11 @@ public abstract class CanvasManagerBase : ComponentBase
         StateHasChanged();
     }
 
-    internal async ValueTask OnChildCanvasAddedAsync(CanvasBase canvas)
+    internal async ValueTask OnChildCanvasAddedAsync(ICanvas canvas)
     {
         await OnCanvasAdded.InvokeAsync(canvas);
     }
 
     [Parameter]
-    public EventCallback<CanvasBase> OnCanvasAdded { get; set; }
+    public EventCallback<ICanvas> OnCanvasAdded { get; set; }
 }
